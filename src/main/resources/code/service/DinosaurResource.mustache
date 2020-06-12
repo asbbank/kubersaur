@@ -1,0 +1,43 @@
+package {{organisationPackage}}.api;
+
+import {{organisationPackage}}.{{microserviceName}}.api.model.Dinosaur;
+import {{organisationPackage}}.{{microserviceName}}.api.model.SuccessResponse;
+import {{organisationPackage}}.{{microserviceName}}.api.DinosaurService;
+import {{organisationPackage}}.service.DomainService;
+
+import javax.inject.Inject;
+
+public class DinosaurResource implements DinosaurService {
+
+    private DomainService domainService;
+
+    @Inject
+    public DinosaurResource(DomainService domainService){
+        this.domainService = domainService;
+    }
+
+    @Override
+    public SuccessResponse createDinosaur(Dinosaur body, String id) {
+        return new SuccessResponse();
+    }
+
+    @Override
+    public SuccessResponse deleteDinosaur(String id) {
+        domainService.delete(id);
+        return new SuccessResponse();
+    }
+
+    @Override
+    public Dinosaur getDinosaur(String id) {
+        return new Dinosaur()
+            .label("kubersaurus")
+            .title("kubersaur");
+    }
+
+    @Override
+    public SuccessResponse updateDinosaur(Dinosaur body, String id) {
+        domainService.update(id, body);
+        return new SuccessResponse();
+    }
+}
+

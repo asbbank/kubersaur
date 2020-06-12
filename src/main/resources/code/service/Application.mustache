@@ -1,0 +1,91 @@
+package {{organisationPackage}};
+
+import cd.connect.lifecycle.ApplicationLifecycleManager;
+import cd.connect.lifecycle.LifecycleStatus;
+import io.netty.channel.Channel;
+import org.glassfish.jersey.internal.inject.AbstractBinder;
+import org.glassfish.jersey.netty.httpserver.NettyHttpContainerProvider;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.inject.Singleton;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import java.net.URI;
+
+import {{organisationPackage}}.common.edge.CommonConfiguration;
+import {{organisationPackage}}.common.edge.filter.CORSResponseFilter;
+import {{organisationPackage}}.api.DinosaurResource;
+import {{organisationPackage}}.service.DomainService;
+
+public class Application {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+
+    public static void main(String[] args) throws Exception {
+        ApplicationLifecycleManager.updateStatus(LifecycleStatus.STARTING);
+
+        final String SERVER_PORT = System.getProperty("server.port", "8080");
+        final URI BASE_URI = URI.create(String.format("http://localhost:%s/", SERVER_PORT));
+        final ResourceConfig config = createNewHttpResourceConfig();
+        final Channel server = NettyHttpContainerProvider.createHttp2Server(BASE_URI, config, null);
+
+        ApplicationLifecycleManager.registerListener(trans -> {
+            if (trans.next == LifecycleStatus.TERMINATING) {
+                server.close();
+            }
+        });
+
+        LOGGER.info("Home Ownership Explorer started -> {}", BASE_URI);
+        ApplicationLifecycleManager.updateStatus(LifecycleStatus.STARTED);
+        Thread.currentThread().join();
+    }
+
+    protected static ResourceConfig createNewHttpResourceConfig() {
+        ResourceConfig config = new ResourceConfig();
+        registerApiResources(config);
+        registerSingletonResources(config);
+        registerResourceInstances(config);
+        registerFilterResources(config);
+        applyBasicConfigures(config);
+        return config;
+    }
+
+    static Client createJerseyClient() {
+        final ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+        CommonConfiguration.applyBasicClientConfigs(clientBuilder);
+        return clientBuilder.build();
+    }
+
+    static void registerApiResources(ResourceConfig config) {
+        // Register all API resources
+        config.register(DinosaurResource.class);
+    }
+
+    static void registerSingletonResources(ResourceConfig config) {
+        config.register(new AbstractBinder() {
+            @Override
+            protected void configure() {
+                bind(DomainService.class).to(DomainService.class).in(Singleton.class);
+            }
+        });
+    }
+
+    static void applyBasicConfigures(ResourceConfig config) {
+        CommonConfiguration.applyBasicServerConfigs(config);
+    }
+
+    static void registerResourceInstances(ResourceConfig config) {
+        final Client client = createJerseyClient();
+
+        config.registerInstances(new AbstractBinder() {
+            protected void configure() {
+                bind(client).to(Client.class).in(Singleton.class);
+            }
+        });
+    }
+
+    static void registerFilterResources(ResourceConfig config) {
+        config.register(CORSResponseFilter.class);
+    }
+}

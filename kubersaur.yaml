@@ -1,0 +1,5 @@
+!!com.darthShana.kubersaur.model.Org
+microservices:
+- {name: customer-history}
+name: customer
+packagePath: nz.co.asb.engineering

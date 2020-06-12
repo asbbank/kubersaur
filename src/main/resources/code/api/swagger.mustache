@@ -1,0 +1,171 @@
+openapi: '3.0.0'
+
+info:
+  version: 1.0.0
+  title: Kubersaurus Service API
+  description: Kubersaurus Service API
+
+servers:
+  - url: https://kubersaurus.asb.co.nz/v1
+    description: Kubersaurus Service API endpoints
+
+tags:
+  - name: Kubersaurus
+    description: Kubersaurus Service API
+
+paths:
+  /dinosaur/{id}:
+    get:
+      summary: Gets the module step template
+      operationId: getDinosaur
+      parameters:
+        - name: id
+          in: path
+          description: Dinosaur id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dinosaur retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dinosaur'
+        '404':
+          description: Dinosaur not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Updates the Dinosaur
+      operationId: updateDinosaur
+      parameters:
+        - name: id
+          in: path
+          description: Dinosaur id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Dinosaur update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dinosaur'
+      responses:
+        '200':
+          description: Dinosaur updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Dinosaur update request invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Dinosaur not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Deletes the Dinosaur
+      operationId: deleteDinosaur
+      parameters:
+        - name: id
+          in: path
+          description: Dinosaur id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dinosaur deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Dinosaur not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Creates the Dinosaur
+      operationId: createDinosaur
+      parameters:
+        - name: id
+          in: path
+          description: Dinosaur id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Dinosaur to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dinosaur'
+      responses:
+        '200':
+          description: Dinosaur created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Dinosaur create request invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        value:
+          type: string
+          default: "SUCCESS"
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          additionalProperties: false
+
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          additionalProperties: false
+
+    Dinosaur:
+      type: object
+      properties:
+        title:
+          type: string
+        label:
+          type: string
+        status:
+          type: string
+        action:
+          type: object
+        value:
+          type: string

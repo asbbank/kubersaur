@@ -1,0 +1,28 @@
+# ide settings
+/.kube/
+/.m2/
+/.helm/
+.idea/
+.DS_Store
+*.iml
+.settings/
+.vscode/
+.m2settings/
+m2settings/
+target/
+[Bb]in/
+
+*.classpath
+*.factorypath
+
+.vscode
+.project
+*.class
+.classpath
+*.rdb
+
+# use git rm -r --cached bin to remove bin/ from existing cache
+
+*.npmrc
+*.yarnrc
+/.vs

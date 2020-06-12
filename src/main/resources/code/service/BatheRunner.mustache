@@ -1,0 +1,26 @@
+package {{organisationPackage}}
+
+import bathe.BatheBooter
+import org.junit.Test
+
+/**
+ * Default Application Runner
+ */
+class BatheRunner {
+  @Test
+  void run() {
+    if (!new File("src/test/java").exists() && !new File("src/test/groovy").exists()) {
+      throw new RuntimeException("Please ensure this test is run in the home directory of the project.");
+    }
+    // this ensures it understands we are in "dev" move, we aren't a bundled jar file - it also ensures
+    // we get the test class loader
+    new BatheBooter().runWithLoader(
+      getClass().classLoader,
+      null,
+      Application.class.name,
+      [
+        '-Pclasspath:/{{microserviceName}}-service.properties',
+      ] as String[]
+    )
+  }
+}
