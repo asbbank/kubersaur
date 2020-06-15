@@ -20,13 +20,24 @@ public class HelmChartGenerator {
         this.baseDir = "platform/helm/"+org.getName()+"/charts/"+microserviceName;
     }
 
+    public String microserviceName(){
+        return microserviceName;
+    }
+
     public void generate() throws IOException {
         new File(baseDir).mkdirs();
-        new File(baseDir+"/templates").mkdirs();
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache mustache = mf.compile("platform/helm/charts/Charts.mustache");
+        Mustache mustache = mf.compile("platform/helm/charts/Chart.mustache");
         mustache.execute(new FileWriter(baseDir+"/"+"Charts.yaml"), this).flush();
         mustache = mf.compile("platform/helm/charts/values.mustache");
         mustache.execute(new FileWriter(baseDir+"/"+"values.yaml"), this).flush();
+
+        new File(baseDir+"/templates").mkdirs();
+        mustache = mf.compile("platform/helm/charts/templates/helpers.mustache");
+        mustache.execute(new FileWriter(baseDir+"/templates/"+"_helpers.tpl"), this).flush();
+        mustache = mf.compile("platform/helm/charts/templates/application.mustache");
+        mustache.execute(new FileWriter(baseDir+"/templates/"+"application.yaml"), this).flush();
+        mustache = mf.compile("platform/helm/charts/templates/config.mustache");
+        mustache.execute(new FileWriter(baseDir+"/templates/"+"config.yaml"), this).flush();
     }
 }
