@@ -1,0 +1,60 @@
+global:
+  namespace: development
+  environment: development
+  cluster: nonprod
+  pullPolicy: Always
+  domainName: dev.asb-engagement.co.nz
+  subDomain: dev
+  domainList: ["dev.asb-engagement.co.nz"]
+  oauth_client_id: "26d96e29-0963-4912-82bb-01ede5603e06"
+  istio:
+    gateway: edge-gateway
+    prefix: "/api"
+    port: 8080
+  tlsCertSecret: ingress-cert
+  secrets:
+    imagePullSecrets: regcred
+  aadpodidbinding: "keyvault_reader"
+  sampleGlobalProperty: "sample property value"
+
+  volumeMounts:
+    configs: "/etc/app/app.properties"
+    nodeConfigs: "/etc/app/config.js"
+    secret: "/etc/app/"
+
+  services:
+    {{#microservices}}
+    {{nameNoDash}}:
+      url: http://{{name}}:8080
+    {{/microservices}}
+
+# Service Overrides
+{{#microservices}}
+{{name}}:
+  image:
+    name: engagementacrdev.azurecr.io/kubersaurus/{{name}}
+    tag: dev
+    pullPolicy: Always
+  secrets:
+    imagePullSecrets: regcred
+  replicaCount: 1
+  properties:
+    dockerPort: 8080
+    servicePort: 8080
+    secretProperties:
+  ambassador:
+  appTech: "java"
+  azurekv:
+    enabled: "false"
+    oauth: "false"
+    redis: "false"
+    postgres: "false"
+  livenessProbe:
+  tzconfig:
+  addVolume:
+    enabled:
+    mountPath:
+    subPath:
+  env:
+    enabled:
+{{/microservices}}

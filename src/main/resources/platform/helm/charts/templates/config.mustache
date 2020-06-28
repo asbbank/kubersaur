@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-{{ template "home-ownership-explorer-ui.name" . }}
-  namespace: {{ .Values.global.namespace }}
+  name: config-{{=<% %>=}}{{<%={{ }}=%> template "{{microserviceName}}.name" . {{=<% %>=}}}}<%={{ }}=%>
+  namespace: {{=<% %>=}}{{<%={{ }}=%> .Values.global.namespace {{=<% %>=}}}}<%={{ }}=%>
 data:
   app.properties: |-
-    app.custom.property=property-{{ .Values.global.cluster }}
+    app.custom.property={{=<% %>=}}{{<%={{ }}=%> .Values.global.sampleGlobalProperty {{=<% %>=}}}}<%={{ }}=%>
 

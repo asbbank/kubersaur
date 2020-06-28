@@ -1,8 +1,10 @@
 package com.darthShana.kubersaur.model;
 
 public class Microservice {
+    private String name;
 
     public Microservice(){}
+
     public Microservice(String name) {
         this.name = name;
     }
@@ -15,5 +17,7 @@ public class Microservice {
         this.name = name;
     }
 
-    private String name;
+    public String getNameNoDash(){
+        return name.replace("-", "_");
+    }
 }

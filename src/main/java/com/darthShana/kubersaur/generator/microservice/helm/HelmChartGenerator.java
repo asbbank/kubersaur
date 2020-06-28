@@ -1,5 +1,6 @@
 package com.darthShana.kubersaur.generator.microservice.helm;
 
+import com.darthShana.kubersaur.model.Microservice;
 import com.darthShana.kubersaur.model.Org;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
@@ -8,6 +9,7 @@ import com.github.mustachejava.MustacheFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class HelmChartGenerator {
     private final String microserviceName;
@@ -20,6 +22,10 @@ public class HelmChartGenerator {
         this.baseDir = "platform/helm/"+org.getName()+"/charts/"+microserviceName;
     }
 
+    public List<Microservice> microservices(){
+        return org.getMicroservices();
+    }
+
     public String microserviceName(){
         return microserviceName;
     }
@@ -28,7 +34,7 @@ public class HelmChartGenerator {
         new File(baseDir).mkdirs();
         MustacheFactory mf = new DefaultMustacheFactory();
         Mustache mustache = mf.compile("platform/helm/charts/Chart.mustache");
-        mustache.execute(new FileWriter(baseDir+"/"+"Charts.yaml"), this).flush();
+        mustache.execute(new FileWriter(baseDir+"/"+"Chart.yaml"), this).flush();
         mustache = mf.compile("platform/helm/charts/values.mustache");
         mustache.execute(new FileWriter(baseDir+"/"+"values.yaml"), this).flush();
 
@@ -39,5 +45,8 @@ public class HelmChartGenerator {
         mustache.execute(new FileWriter(baseDir+"/templates/"+"application.yaml"), this).flush();
         mustache = mf.compile("platform/helm/charts/templates/config.mustache");
         mustache.execute(new FileWriter(baseDir+"/templates/"+"config.yaml"), this).flush();
+
+        mustache = mf.compile("platform/helm/values-global.mustache");
+        mustache.execute(new FileWriter("platform/helm/"+org.getName()+"/values.yaml"), this).flush();
     }
 }
