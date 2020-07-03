@@ -22,12 +22,6 @@ global:
     nodeConfigs: "/etc/app/config.js"
     secret: "/etc/app/"
 
-  services:
-    {{#microservices}}
-    {{nameNoDash}}:
-      url: http://{{name}}:8080
-    {{/microservices}}
-
 # Service Overrides
 {{#microservices}}
 {{name}}:

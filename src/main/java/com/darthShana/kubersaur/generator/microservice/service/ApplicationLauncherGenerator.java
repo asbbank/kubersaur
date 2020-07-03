@@ -10,35 +10,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ApplicationLauncherGenerator implements Generator {
-    private final String microserviceName;
-    private final String baseDir;
+public class ApplicationLauncherGenerator extends Generator {
     private final String templateDirectory;
-    private final Org org;
     private final String filePath;
 
     public ApplicationLauncherGenerator(String microserviceName, String baseDir, String templateDirectory, Org org) {
-        this.microserviceName = microserviceName;
-        this.baseDir = baseDir;
+        super(org, microserviceName);
         this.templateDirectory = templateDirectory;
-        this.org = org;
         this.filePath = baseDir+"/src/test/groovy/"+org.getPackagePathDirs();
     }
 
     @Override
-    public String organisationPackage() {
-        return org.getPackagePath();
-    }
-
-    @Override
-    public String organisationName() {
-        return org.getName();
-    }
-
-    public String microserviceName(){
-        return microserviceName;
-    }
-
     public void generate() throws IOException {
         new File(filePath).mkdirs();
         MustacheFactory mf = new DefaultMustacheFactory();

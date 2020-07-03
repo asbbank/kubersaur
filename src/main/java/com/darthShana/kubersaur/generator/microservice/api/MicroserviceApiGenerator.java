@@ -1,6 +1,5 @@
 package com.darthShana.kubersaur.generator.microservice.api;
 
-import com.darthShana.kubersaur.generator.Generator;
 import com.darthShana.kubersaur.generator.microservice.PomGenerator;
 import com.darthShana.kubersaur.model.Org;
 
@@ -21,6 +20,6 @@ public class MicroserviceApiGenerator {
 
     public void generate() throws IOException {
         new PomGenerator(name, baseDir, templateDir, org).generate();
-        new SwaggerGenerator(name, baseDir, templateDir).generate();
+        new OpenApiGenerator(name, baseDir, templateDir, org).generate();
     }
 }

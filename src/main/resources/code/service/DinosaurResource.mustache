@@ -2,22 +2,22 @@ package {{organisationPackage}}.api;
 
 import {{organisationPackage}}.{{microserviceName}}.api.model.Dinosaur;
 import {{organisationPackage}}.{{microserviceName}}.api.model.SuccessResponse;
-import {{organisationPackage}}.{{microserviceName}}.api.DinosaurService;
+import {{organisationPackage}}.{{microserviceName}}.api.{{microserviceNameCamelCase}}DinosaurService;
 import {{organisationPackage}}.service.DomainService;
 
 import javax.inject.Inject;
 
-public class DinosaurResource implements DinosaurService {
+public class {{microserviceNameCamelCase}}DinosaurResource implements {{microserviceNameCamelCase}}DinosaurService {
 
     private DomainService domainService;
 
     @Inject
-    public DinosaurResource(DomainService domainService){
+    public {{microserviceNameCamelCase}}DinosaurResource(DomainService domainService){
         this.domainService = domainService;
     }
 
     @Override
-    public SuccessResponse createDinosaur(Dinosaur body, String id) {
+    public SuccessResponse createDinosaur(String id, Dinosaur dinosaur) {
         return new SuccessResponse();
     }
 
@@ -35,9 +35,10 @@ public class DinosaurResource implements DinosaurService {
     }
 
     @Override
-    public SuccessResponse updateDinosaur(Dinosaur body, String id) {
-        domainService.update(id, body);
+    public SuccessResponse updateDinosaur(String id, Dinosaur dinosaur) {
+        domainService.update(id, dinosaur);
         return new SuccessResponse();
     }
+
 }
 

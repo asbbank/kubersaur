@@ -10,33 +10,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class DomainGenerator implements Generator {
-    private final String microserviceName;
+public class DomainGenerator extends Generator {
     private final String baseDir;
     private final String templateDirectory;
-    private final Org org;
     private final String filePath;
 
     public DomainGenerator(String microserviceName, String baseDir, String templateDirectory, Org org) {
-        this.microserviceName = microserviceName;
+        super(org, microserviceName);
         this.baseDir = baseDir;
         this.templateDirectory = templateDirectory;
-        this.org = org;
         this.filePath = baseDir+"/src/main/java/"+org.getPackagePathDirs()+"/service";
-    }
-
-    @Override
-    public String organisationPackage() {
-        return org.getPackagePath();
-    }
-
-    @Override
-    public String organisationName() {
-        return org.getName();
-    }
-
-    public String microserviceName() {
-        return microserviceName.replace("-", "_");
     }
 
     public void generate() throws IOException {

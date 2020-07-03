@@ -9,32 +9,22 @@ import com.github.mustachejava.MustacheFactory;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PomGenerator implements Generator {
+public class PomGenerator extends Generator {
 
-    private String microserviceName;
     private String baseDirectory;
-    private Org org;
     private String templateDirectory;
 
-    String microserviceName(){
-        return microserviceName;
+    public PomGenerator(String microserviceName, String baseDirectory, String templateDirectory, Org org) {
+        super(org, microserviceName);
+        this.baseDirectory = baseDirectory;
+        this.templateDirectory = templateDirectory;
     }
 
-    @Override
-    public String organisationPackage() {
-        return organisationPackage();
-    }
 
     public String organisationName(){
         return org.getName();
     }
 
-    public PomGenerator(String microserviceName, String baseDirectory, String templateDirectory, Org org) {
-        this.microserviceName = microserviceName;
-        this.baseDirectory = baseDirectory;
-        this.templateDirectory = templateDirectory;
-        this.org = org;
-    }
 
     @Override
     public void generate() throws IOException {

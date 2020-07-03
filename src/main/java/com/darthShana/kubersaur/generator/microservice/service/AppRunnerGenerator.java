@@ -10,29 +10,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class AppRunnerGenerator implements Generator {
-    private final String microserviceName;
+public class AppRunnerGenerator extends Generator {
     private final String baseDir;
     private final String templateDirectory;
-    private final Org org;
     private final String filePath;
 
     public AppRunnerGenerator(String microserviceName, String baseDir, String templateDirectory, Org org) {
-        this.microserviceName = microserviceName;
+        super(org, microserviceName);
         this.baseDir = baseDir;
         this.templateDirectory = templateDirectory;
-        this.org = org;
         this.filePath = baseDir+"/src/main/java/"+org.getPackagePathDirs();
-    }
-
-    @Override
-    public String organisationPackage() {
-        return org.getPackagePath();
-    }
-
-    @Override
-    public String organisationName() {
-        return org.getName();
     }
 
     public void generate() throws IOException {

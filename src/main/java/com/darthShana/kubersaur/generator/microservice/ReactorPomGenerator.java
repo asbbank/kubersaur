@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class ReactorPomGenerator implements Generator {
+public class ReactorPomGenerator {
 
 
     private final String baseDir;
@@ -27,17 +27,14 @@ public class ReactorPomGenerator implements Generator {
         return org.getMicroservices();
     }
 
-    @Override
     public String organisationPackage() {
         return org.getPackagePath();
     }
 
-    @Override
     public String organisationName() {
         return org.getName();
     }
 
-    @Override
     public void generate() throws IOException {
         MustacheFactory mf = new DefaultMustacheFactory();
         Mustache mustache = mf.compile(this.baseDir+"/reactor-pom.mustache");

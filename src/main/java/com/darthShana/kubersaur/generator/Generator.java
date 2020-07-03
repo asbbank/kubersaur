@@ -1,13 +1,36 @@
 package com.darthShana.kubersaur.generator;
 
+import com.darthShana.kubersaur.model.Org;
+import com.google.common.base.CaseFormat;
+
 import java.io.IOException;
-import java.io.StringWriter;
 
-public interface Generator {
+public abstract class Generator {
 
-    String organisationPackage();
-    String organisationName();
+    protected final Org org;
+    protected final String microserviceName;
 
-    void generate() throws IOException;
+    public Generator(Org org, String microserviceName){
+        this.org = org;
+        this.microserviceName = microserviceName;
+    }
+
+    public String organisationPackage() {
+        return org.getPackagePath();
+    }
+
+    public String organisationName() {
+        return org.getName();
+    }
+
+    public String microserviceName() {
+        return microserviceName.replace("-", "_");
+    }
+
+    public String microserviceNameCamelCase(){
+        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, microserviceName);
+    }
+
+    public abstract void generate() throws IOException;
 
 }

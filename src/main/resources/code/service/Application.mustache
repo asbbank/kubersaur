@@ -16,7 +16,7 @@ import java.net.URI;
 
 import {{organisationPackage}}.common.edge.CommonConfiguration;
 import {{organisationPackage}}.common.edge.filter.CORSResponseFilter;
-import {{organisationPackage}}.api.DinosaurResource;
+import {{organisationPackage}}.api.{{microserviceNameCamelCase}}DinosaurResource;
 import {{organisationPackage}}.service.DomainService;
 
 public class Application {
@@ -59,7 +59,7 @@ public class Application {
 
     static void registerApiResources(ResourceConfig config) {
         // Register all API resources
-        config.register(DinosaurResource.class);
+        config.register({{microserviceNameCamelCase}}DinosaurResource.class);
     }
 
     static void registerSingletonResources(ResourceConfig config) {

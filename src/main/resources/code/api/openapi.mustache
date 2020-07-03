@@ -6,7 +6,7 @@ info:
   description: Kubersaurus Service API
 
 servers:
-  - url: https://kubersaurus.asb.co.nz/v1
+  - url: http://{{microserviceName}}:8080
     description: Kubersaurus Service API endpoints
 
 tags:
@@ -16,6 +16,8 @@ tags:
 paths:
   /dinosaur/{id}:
     get:
+      tags:
+        - {{microserviceNameCamelCase}}DinosaurService
       summary: Gets the module step template
       operationId: getDinosaur
       parameters:
@@ -39,6 +41,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
+      tags:
+        - {{microserviceNameCamelCase}}DinosaurService
       summary: Updates the Dinosaur
       operationId: updateDinosaur
       parameters:
@@ -75,6 +79,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
+      tags:
+        - {{microserviceNameCamelCase}}DinosaurService
       summary: Deletes the Dinosaur
       operationId: deleteDinosaur
       parameters:
@@ -98,6 +104,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
+      tags:
+        - {{microserviceNameCamelCase}}DinosaurService
       summary: Creates the Dinosaur
       operationId: createDinosaur
       parameters:
@@ -145,7 +153,6 @@ components:
           format: int32
         message:
           type: string
-          additionalProperties: false
 
     ErrorResponse:
       type: object
@@ -154,7 +161,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-          additionalProperties: false
 
     Dinosaur:
       type: object
@@ -165,7 +171,5 @@ components:
           type: string
         status:
           type: string
-        action:
-          type: object
         value:
           type: string
