@@ -1,0 +1,10 @@
+helm upgrade \
+        --install {{orgName}}-dev ./{{orgName}} \
+        --namespace development \
+        --atomic \
+        --set global.namespace=development \
+        --timeout 420s \
+{{#microservices}}
+        --set {{microservice}}.image.tag={{version}} \
+{{/microservices}}
+        --debug

@@ -15,27 +15,32 @@ public class KubersaurLauncher {
 
     public static void main(String ... argv) throws IOException {
         CommandMicroservice microservice = new CommandMicroservice();
+        PrepareMicroservice prepare = new PrepareMicroservice();
 
         KubersaurLauncher main = new KubersaurLauncher();
-        JCommander.newBuilder()
+        JCommander commander = JCommander.newBuilder()
                 .addObject(main)
                 .addCommand("create", microservice)
-                .build()
-                .parse(argv);
-        main.run(microservice);
-    }
+                .addCommand("prepare", prepare)
+                .build();
 
-    private void run(CommandMicroservice microservice) throws IOException {
+        commander.parse(argv);
+
+        String parsedCommand = commander.getParsedCommand();
+
         Yaml yaml = new Yaml(new Constructor(Org.class));
         InputStream inputStream = new FileInputStream("kubersaur.yaml");
         Org org = yaml.load(inputStream);
 
-        MicroserviceGenerator microserviceGenerator = new MicroserviceGenerator(microservice.name, org);
-        microserviceGenerator.generate();
+        if("create".equals(parsedCommand)){
+            microservice.run(org, yaml);
+        }else if("prepare".equals(parsedCommand)){
+            prepare.run(org, yaml);
+        }
 
-        FileWriter writer = new FileWriter("kubersaur.yaml");
-        yaml.dump(org, writer);
-        writer.flush();
+
     }
+
+
 
 }
