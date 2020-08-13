@@ -1,5 +1,6 @@
-package com.darthShana.kubersaur.generator.microservice.service;
+package com.darthShana.kubersaur.generator.microservice.service.java;
 
+import com.darthShana.kubersaur.generator.Generator;
 import com.darthShana.kubersaur.model.Org;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
@@ -9,25 +10,22 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PropertyFileGenerator {
-    private final String name;
+public class DomainGenerator extends Generator {
     private final String baseDir;
     private final String templateDirectory;
-    private final Org org;
     private final String filePath;
 
-    public PropertyFileGenerator(String name, String baseDir, String templateDirectory, Org org) {
-        this.name = name;
+    public DomainGenerator(String microserviceName, String baseDir, String templateDirectory, Org org) {
+        super(org, microserviceName);
         this.baseDir = baseDir;
         this.templateDirectory = templateDirectory;
-        this.org = org;
-        this.filePath = baseDir+"/src/test/resources/";
+        this.filePath = baseDir+"/src/main/java/"+org.getPackagePathDirs()+"/service";
     }
 
     public void generate() throws IOException {
         new File(filePath).mkdirs();
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache mustache = mf.compile(templateDirectory +"MicroserviceProperties.mustache");
-        mustache.execute(new FileWriter(filePath+"/"+name+"-service.properties"), this).flush();
+        Mustache mustache = mf.compile(templateDirectory +"DomainService.mustache");
+        mustache.execute(new FileWriter(filePath+"/"+"DomainService.java"), this).flush();
     }
 }

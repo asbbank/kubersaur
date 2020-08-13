@@ -1,9 +1,11 @@
 package com.darthShana.kubersaur.generator;
 
+import com.darthShana.kubersaur.model.Microservice;
 import com.darthShana.kubersaur.model.Org;
 import com.google.common.base.CaseFormat;
 
 import java.io.IOException;
+import java.util.List;
 
 public abstract class Generator {
 
@@ -29,6 +31,10 @@ public abstract class Generator {
 
     public String microserviceNameCamelCase(){
         return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, microserviceName);
+    }
+
+    public List<Microservice> microservices(){
+        return org.getMicroservices();
     }
 
     public abstract void generate() throws IOException;

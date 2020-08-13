@@ -1,20 +1,16 @@
 package com.darthShana.kubersaur.cli;
 
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
-import com.darthShana.kubersaur.generator.microservice.MicroserviceGenerator;
 import com.darthShana.kubersaur.model.Org;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class KubersaurLauncher {
 
     public static void main(String ... argv) throws IOException {
-        CommandMicroservice microservice = new CommandMicroservice();
+        CreateMicroservice microservice = new CreateMicroservice();
         PrepareMicroservice prepare = new PrepareMicroservice();
 
         KubersaurLauncher main = new KubersaurLauncher();

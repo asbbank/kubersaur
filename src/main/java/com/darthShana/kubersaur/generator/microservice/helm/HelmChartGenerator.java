@@ -20,8 +20,6 @@ public class HelmChartGenerator extends Generator {
         this.baseDir = "platform/helm/"+org.getName()+"/charts/"+microserviceName;
     }
 
-
-
     public void generate() throws IOException {
         new File(baseDir).mkdirs();
         MustacheFactory mf = new DefaultMustacheFactory();

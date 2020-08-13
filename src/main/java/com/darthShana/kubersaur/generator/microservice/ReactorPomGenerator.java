@@ -37,7 +37,7 @@ public class ReactorPomGenerator {
 
     public void generate() throws IOException {
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache mustache = mf.compile(this.baseDir+"/reactor-pom.mustache");
-        mustache.execute(new FileWriter(this.baseDir+"/pom.xml"), this).flush();
+        Mustache mustache = mf.compile(this.baseDir+"reactor-pom.mustache");
+        mustache.execute(new FileWriter(this.baseDir+"pom.xml"), this).flush();
     }
 }

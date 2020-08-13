@@ -1,4 +1,4 @@
-package com.darthShana.kubersaur.generator.microservice.service;
+package com.darthShana.kubersaur.generator.microservice.service.java;
 
 import com.darthShana.kubersaur.generator.microservice.PomGenerator;
 import com.darthShana.kubersaur.model.Org;

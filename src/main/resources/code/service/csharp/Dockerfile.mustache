@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+
+COPY ZscalerRootCA.pem /usr/local/share/ca-certificates/ASB-Root-CA.crt
+RUN update-ca-certificates
+
+WORKDIR /app
+
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
+COPY nuget.config ./
+RUN dotnet restore --configfile nuget.config
+
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENV ASPNETCORE_URLS=http://+:8080
+ENTRYPOINT ["dotnet", "{{microserviceNameCamelCase}}-service.dll"]

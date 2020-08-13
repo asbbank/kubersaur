@@ -1,31 +1,34 @@
-package com.darthShana.kubersaur.generator.microservice.service;
+package com.darthShana.kubersaur.generator.microservice.service.java;
 
 import com.darthShana.kubersaur.generator.Generator;
 import com.darthShana.kubersaur.model.Org;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import com.google.common.base.CaseFormat;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class AppRunnerGenerator extends Generator {
+public class RestResourceGenerator extends Generator {
     private final String baseDir;
     private final String templateDirectory;
     private final String filePath;
 
-    public AppRunnerGenerator(String microserviceName, String baseDir, String templateDirectory, Org org) {
+    public RestResourceGenerator(String microserviceName, String baseDir, String templateDirectory, Org org) {
         super(org, microserviceName);
         this.baseDir = baseDir;
         this.templateDirectory = templateDirectory;
-        this.filePath = baseDir+"/src/main/java/"+org.getPackagePathDirs();
+        this.filePath = baseDir+"/src/main/java/"+org.getPackagePathDirs()+"/api";
     }
+
+
 
     public void generate() throws IOException {
         new File(filePath).mkdirs();
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache mustache = mf.compile(templateDirectory +"Application.mustache");
-        mustache.execute(new FileWriter(filePath+"/"+"Application.java"), this).flush();
+        Mustache mustache = mf.compile(templateDirectory +"DinosaurResource.mustache");
+        mustache.execute(new FileWriter(filePath+"/"+microserviceNameCamelCase()+"DinosaurResource.java"), this).flush();
     }
 }

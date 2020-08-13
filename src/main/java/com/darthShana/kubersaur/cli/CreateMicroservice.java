@@ -11,18 +11,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class CommandMicroservice implements RunnableCommand{
+public class CreateMicroservice implements RunnableCommand{
 
     @Parameter(description = "action")
     String workload;
 
-    @Parameter(names = "--name")
+    @Parameter(names = "--name", required = true)
     String name;
+
+    @Parameter(names = "--language", required = true, converter = LanguageConverter.class)
+    Language language;
 
     public void run(Org org, Yaml yaml) throws IOException {
 
 
-        MicroserviceGenerator microserviceGenerator = new MicroserviceGenerator(name, org);
+        MicroserviceGenerator microserviceGenerator = new MicroserviceGenerator(name, language, org);
         microserviceGenerator.generate();
 
         FileWriter writer = new FileWriter("kubersaur.yaml");
