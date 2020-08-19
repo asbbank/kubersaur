@@ -1,0 +1,38 @@
+{
+   // Use IntelliSense to find out which attributes exist for C# debugging
+   // Use hover for the description of the existing attributes
+   // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+   "version": "0.2.0",
+   "configurations": [
+{{#microservices}}
+{{#isCSHARPProject}}
+       {
+           "name": "{{name}}",
+           "type": "coreclr",
+           "request": "launch",
+           "preLaunchTask": "build-{{name}}",
+           "program": "${workspaceFolder}/code/service/customer-service/bin/Debug/netcoreapp3.1/{{name}}-service.dll",
+           "args": [],
+           "cwd": "${workspaceFolder}/code/service/{{name}}-service",
+           "stopAtEntry": false,
+           "serverReadyAction": {
+               "action": "openExternally",
+               "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+           },
+           "env": {
+               "ASPNETCORE_ENVIRONMENT": "Development"
+           },
+           "sourceFileMap": {
+               "/Views": "${workspaceFolder}/Views"
+           }
+       },
+{{/isCSHARPProject}}
+{{/microservices}}
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
+}

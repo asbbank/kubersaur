@@ -1,83 +1,59 @@
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using Models;
-using {{organisationPackage}}.{{microserviceNameCamelCase}}.api.Api;
-using {{organisationPackage}}.{{microserviceNameCamelCase}}.api.Client;
-using {{organisationPackage}}.{{microserviceNameCamelCase}}.api.Model;
+using {{organisationPackage}}.{{organisationName}}.{{microserviceName}}.api.Api;
+using {{organisationPackage}}.{{organisationName}}.{{microserviceName}}.api.Client;
+using {{organisationPackage}}.{{organisationName}}.{{microserviceName}}.api.Model;
 using Microsoft.Extensions.Logging;
 using dotnet_microservice_support;
+using System.Linq;
 
 namespace Controllers
 {
-    public class DinosaurController : AbstractDotnetasaurusServiceApiSync
+    public class DinosaurController : Abstract{{microserviceNameCamelCase}}DinosaurServiceApiSync
     {
 
         public DinosaurController(IClientFactory clientFactory)
         {
         }
 
+        public override SuccessResponse CreateDinosaur (string id, Dinosaur dinosaur)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ApiResponse<SuccessResponse> CreateDinosaurWithHttpInfo (string id, Dinosaur dinosaur)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override SuccessResponse DeleteDinosaur (string id)
+        {
+            throw new System.NotImplementedException();
+        }
+        public override ApiResponse<SuccessResponse> DeleteDinosaurWithHttpInfo (string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Dinosaur GetDinosaur (string id)
+        {
+            return new Dinosaur(){Title = "hello world {{microserviceName}}"};
+        }
+        public override ApiResponse<Dinosaur> GetDinosaurWithHttpInfo (string id)
+        {
+            throw new System.NotImplementedException();
+        }
+        public override SuccessResponse UpdateDinosaur (string id, Dinosaur dinosaur)
+        {
+            throw new System.NotImplementedException();
+        }
+        public override ApiResponse<SuccessResponse> UpdateDinosaurWithHttpInfo (string id, Dinosaur dinosaur)
+        {
+            throw new System.NotImplementedException();
+        }
         public override IReadableConfiguration ConfigurationImpl { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
         public override ExceptionFactory ExceptionFactoryImpl { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-        public override SuccessResponse CreateModuleStepTemplate(string module, string step, ModuleStep moduleStep)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ApiResponse<SuccessResponse> CreateModuleStepTemplateWithHttpInfo(string module, string step, ModuleStep moduleStep)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override SuccessResponse DeleteModuleStepTemplate(string module, string step)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ApiResponse<SuccessResponse> DeleteModuleStepTemplateWithHttpInfo(string module, string step)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override string GetBasePath()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ModuleStep GetModule(string module)
-        {
-            return new ModuleStep(){
-                State = new List<StepState>{new StepState(){Title="hello world dotnet"}}
-            };
-        }
-
-        public override ModuleStep GetModuleStepTemplate(string module, string step)
-        {
-            return new ModuleStep(){
-                State = new List<StepState>{new StepState{Title="foogoo"}}
-            };
-
-        }
-
-
-
-        public override ApiResponse<ModuleStep> GetModuleStepTemplateWithHttpInfo(string module, string step)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ApiResponse<ModuleStep> GetModuleWithHttpInfo(string module)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override SuccessResponse UpdateModuleStepTemplate(string module, string step, ModuleStep moduleStep)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ApiResponse<SuccessResponse> UpdateModuleStepTemplateWithHttpInfo(string module, string step, ModuleStep moduleStep)
         {
             throw new System.NotImplementedException();
         }

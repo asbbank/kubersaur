@@ -7,7 +7,7 @@ import com.darthShana.kubersaur.model.Org;
 import java.io.File;
 import java.io.IOException;
 
-public class MicroserviceImplGenerator extends Generator {
+public class MicroserviceImplGenerator extends Generator implements org.kubersaur.codegen.implementation.CodegenConfig{
     private final String name;
     private final String baseDirectory;
     private final String templateDirectory;
@@ -25,7 +25,6 @@ public class MicroserviceImplGenerator extends Generator {
         new File(baseDirectory+"bin/").mkdirs();
         new File(baseDirectory+"Models/").mkdirs();
         new File(baseDirectory+"obj/").mkdirs();
-        new File(baseDirectory+"Properties/").mkdirs();
         new File(baseDirectory+"target/").mkdirs();
 
 
@@ -46,7 +45,7 @@ public class MicroserviceImplGenerator extends Generator {
 
         new FileGeneratorBuilder("nuget.config")
                 .atLocation(baseDirectory)
-                .withTemplate(templateDirectory+"Startup.mustache")
+                .withTemplate(templateDirectory+"nuget.mustache")
                 .generate(this);
 
         new FileGeneratorBuilder("appsettings.json")
@@ -54,9 +53,19 @@ public class MicroserviceImplGenerator extends Generator {
                 .withTemplate(templateDirectory+"appsettings.mustache")
                 .generate(this);
 
+        new FileGeneratorBuilder("launchSettings.json")
+                .atLocation(baseDirectory+"Properties/")
+                .withTemplate(templateDirectory+"launchSettings.mustache")
+                .generate(this);
+
         new FileGeneratorBuilder(".dockerignore")
                 .atLocation(baseDirectory)
                 .withTemplate(templateDirectory+"dockerignore.mustache")
+                .generate(this);
+
+        new FileGeneratorBuilder("Dockerfile")
+                .atLocation(baseDirectory)
+                .withTemplate(templateDirectory+"Dockerfile.mustache")
                 .generate(this);
 
         new FileGeneratorBuilder("DinosaurController.cs")
@@ -64,5 +73,26 @@ public class MicroserviceImplGenerator extends Generator {
                 .withTemplate(templateDirectory+"DinosaurController.mustache")
                 .generate(this);
 
+        new FileGeneratorBuilder("pom.xml")
+                .atLocation(baseDirectory)
+                .withTemplate(templateDirectory+"pom.mustache")
+                .generate(this);
+
+        new FileGeneratorBuilder("launch.json")
+                .atLocation(".vscode/")
+                .withTemplate(templateDirectory+"launch.mustache")
+                .generate(this);
+
+        new FileGeneratorBuilder("tasks.json")
+                .atLocation(".vscode/")
+                .withTemplate(templateDirectory+"tasks.mustache")
+                .generate(this);
+
+
+    }
+
+    @Override
+    public String getName() {
+        return "csharp";
     }
 }

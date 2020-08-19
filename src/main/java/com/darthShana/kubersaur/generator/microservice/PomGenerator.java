@@ -30,6 +30,6 @@ public class PomGenerator extends Generator {
     public void generate() throws IOException {
         MustacheFactory mf = new DefaultMustacheFactory();
         Mustache mustache = mf.compile(templateDirectory +"pom.mustache");
-        mustache.execute(new FileWriter(baseDirectory+"/"+"pom.xml"), this).flush();
+        mustache.execute(new FileWriter(baseDirectory+"pom.xml"), this).flush();
     }
 }

@@ -31,7 +31,7 @@ public class Org {
     }
 
     public String getPackagePathDirs() {
-        return packagePath.replace(".", "/");
+        return packagePath.replace(".", "/")+"/";
     }
 
     public void setPackagePath(String packagePath) {
