@@ -3,21 +3,24 @@ package com.darthShana.kubersaur.generator.microservice.service.csharp;
 import com.darthShana.kubersaur.generator.Generator;
 import com.darthShana.kubersaur.generator.core.FileGeneratorBuilder;
 import com.darthShana.kubersaur.model.Org;
+import org.kubersaur.codegen.Language;
 
 import java.io.File;
 import java.io.IOException;
 
 public class MicroserviceImplGenerator extends Generator implements org.kubersaur.codegen.implementation.CodegenConfig{
-    private final String name;
-    private final String baseDirectory;
-    private final String templateDirectory;
-    private final Org org;
+    private String name;
+    private String baseDirectory;
+    private String templateDirectory;
+    private Org org;
 
-    public MicroserviceImplGenerator(String name, String baseDirectory, String templateDirectory, Org org) {
-        super(org, name);
+    public MicroserviceImplGenerator(){}
+
+    @Override
+    public void init(String name, String implementationBaseDirectory, String templateDir, Org org) {
         this.name = name;
-        this.baseDirectory = baseDirectory;
-        this.templateDirectory = templateDirectory;
+        this.baseDirectory = implementationBaseDirectory;
+        this.templateDirectory = templateDir;
         this.org = org;
     }
 
@@ -95,4 +98,10 @@ public class MicroserviceImplGenerator extends Generator implements org.kubersau
     public String getName() {
         return "csharp";
     }
+
+    @Override
+    public Language getLanguage() {
+        return Language.CSHARP;
+    }
+
 }

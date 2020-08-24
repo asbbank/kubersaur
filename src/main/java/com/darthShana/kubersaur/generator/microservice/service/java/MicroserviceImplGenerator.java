@@ -4,17 +4,22 @@ import com.darthShana.kubersaur.generator.Generator;
 import com.darthShana.kubersaur.generator.core.FileGeneratorBuilder;
 import com.darthShana.kubersaur.generator.microservice.PomGenerator;
 import com.darthShana.kubersaur.model.Org;
+import org.kubersaur.codegen.Language;
 
 import java.io.IOException;
 
 public class MicroserviceImplGenerator extends Generator implements org.kubersaur.codegen.implementation.CodegenConfig{
-    private final String baseDir;
-    private final String templateDirectory;
+    private String baseDir;
+    private String templateDirectory;
 
-    public MicroserviceImplGenerator(String name, String baseDir, String templateDirectory, Org org) {
-        super(org, name);
-        this.baseDir = baseDir;
-        this.templateDirectory = templateDirectory;
+    public MicroserviceImplGenerator(){}
+
+    @Override
+    public void init(String name, String implementationBaseDirectory, String templateDir, Org org) {
+        this.microserviceName = name;
+        this.baseDir = implementationBaseDirectory;
+        this.templateDirectory = templateDir;
+        this.org = org;
     }
 
     public void generate() throws IOException {
@@ -55,4 +60,11 @@ public class MicroserviceImplGenerator extends Generator implements org.kubersau
     public String getName() {
         return "java";
     }
+
+    @Override
+    public Language getLanguage() {
+        return Language.JAVA;
+    }
+
+
 }

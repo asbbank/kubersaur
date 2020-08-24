@@ -9,8 +9,10 @@ import java.util.List;
 
 public abstract class Generator {
 
-    protected final Org org;
-    protected final String microserviceName;
+    protected Org org;
+    protected String microserviceName;
+
+    public Generator(){}
 
     public Generator(Org org, String microserviceName){
         this.org = org;

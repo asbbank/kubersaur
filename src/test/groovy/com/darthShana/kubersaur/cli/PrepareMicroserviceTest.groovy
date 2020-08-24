@@ -1,11 +1,10 @@
 package com.darthShana.kubersaur.cli
 
 import com.darthShana.kubersaur.model.Org
-import org.yaml.snakeyaml.Yaml
 
 class PrepareMicroserviceTest extends spock.lang.Specification {
 
-    def "length of Spock's and his friends' names"() {
+    def "parse json manifest file"() {
         given:
         def rel = new PrepareMicroservice()
         rel.manifestFile = "./connect-manifest.json"

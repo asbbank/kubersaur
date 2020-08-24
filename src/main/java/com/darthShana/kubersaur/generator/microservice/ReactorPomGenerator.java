@@ -1,12 +1,10 @@
 package com.darthShana.kubersaur.generator.microservice;
 
-import com.darthShana.kubersaur.generator.Generator;
 import com.darthShana.kubersaur.model.Microservice;
 import com.darthShana.kubersaur.model.Org;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import mustachejava.Pom;
 
 import java.io.FileWriter;
 import java.io.IOException;

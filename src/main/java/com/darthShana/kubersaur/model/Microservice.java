@@ -1,6 +1,6 @@
 package com.darthShana.kubersaur.model;
 
-import com.darthShana.kubersaur.cli.Language;
+import org.kubersaur.codegen.Language;
 
 public class Microservice {
     private String name;
@@ -35,6 +35,6 @@ public class Microservice {
     }
 
     public boolean isCSHARPProject(){
-        return language ==Language.CSHARP;
+        return language == Language.CSHARP;
     }
 }

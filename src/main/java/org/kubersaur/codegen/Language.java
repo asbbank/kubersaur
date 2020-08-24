@@ -1,4 +1,4 @@
-package com.darthShana.kubersaur.cli;
+package org.kubersaur.codegen;
 
 public enum Language {
 
