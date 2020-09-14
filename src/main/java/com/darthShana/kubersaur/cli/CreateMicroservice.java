@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Set;
 
 public class CreateMicroservice implements RunnableCommand{
 
@@ -23,15 +25,40 @@ public class CreateMicroservice implements RunnableCommand{
     @Parameter(names = "--language", required = true, converter = LanguageConverter.class)
     Language language;
 
+    Set<String> generatorOverrides;
+
     public void run(Org org, Yaml yaml) throws IOException {
 
-
-        MicroserviceGenerator microserviceGenerator = new MicroserviceGenerator(name, language, org);
+        MicroserviceGenerator microserviceGenerator = new MicroserviceGenerator(name, language, org, generatorOverrides);
         microserviceGenerator.generate();
 
         FileWriter writer = new FileWriter("kubersaur.yaml");
         yaml.dump(org, writer);
         writer.flush();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public Set<String> getGeneratorOverrides() {
+        return generatorOverrides;
+    }
+
+    public void setGeneratorOverrides(Set<String> generatorOverrides) {
+        this.generatorOverrides = generatorOverrides;
     }
 
 }

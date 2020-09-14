@@ -4,31 +4,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>nz.co.asb.engineering.kubersaurus.parent</groupId>
-        <artifactId>kubersaurus-parent</artifactId>
+        <groupId>org.kubersaurus.parent</groupId>
+        <artifactId>project-parent</artifactId>
         <version>1.1-SNAPSHOT</version>
         <relativePath>../../parent</relativePath>
     </parent>
 
-    <groupId>nz.co.asb.engineering.{{organisationName}}.api</groupId>
+    <groupId>{{organisationPackage}}.{{organisationName}}.api</groupId>
     <artifactId>{{microserviceName}}-api</artifactId>
     <version>1.1-SNAPSHOT</version>
     <name>{{microserviceName}} API</name>
     <packaging>jar</packaging>
 
     <properties>
-        <openapi.apiPackage>nz.co.asb.engineering.{{organisationName}}.{{microserviceName}}.api</openapi.apiPackage>
-        <openapi.modelPackage>nz.co.asb.engineering.{{organisationName}}.{{microserviceName}}.api.model</openapi.modelPackage>
+        <openapi.apiPackage>{{organisationPackage}}.{{organisationName}}.{{microserviceName}}.api</openapi.apiPackage>
+        <openapi.modelPackage>{{organisationPackage}}.{{organisationName}}.{{microserviceName}}.api.model</openapi.modelPackage>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>nz.co.asb.engineering.composite</groupId>
+            <groupId>org.kubersaurus.composite</groupId>
             <artifactId>composite-jersey-api-codegen</artifactId>
             <version>[${release.version}]</version>
         </dependency>
         <dependency>
-            <groupId>nz.co.asb.engineering.common</groupId>
+            <groupId>org.kubersaurus.common</groupId>
             <artifactId>api-generator-support</artifactId>
             <version>[${release.version}]</version>
         </dependency>
@@ -44,9 +44,9 @@
                 <configuration>
                     <filtering>false</filtering>
                     <tiles>
-                        <tile>nz.co.asb.engineering.tiles:tile-openapi-codegen:[1.3,2)</tile>
-                        <tile>nz.co.asb.engineering.tiles:tile-java11:[1.5,2)</tile>
-                        <tile>nz.co.asb.engineering.tiles:tile-dotnet-install:[1.3,2)</tile>
+                        <tile>org.kubersaurus.tiles:tile-openapi-codegen:[1.3,2)</tile>
+                        <tile>org.kubersaurus.tiles:tile-java11:[1,2)</tile>
+                        <tile>org.kubersaurus.tiles:tile-dotnet-install:[1.3,2)</tile>
                     </tiles>
                 </configuration>
             </plugin>

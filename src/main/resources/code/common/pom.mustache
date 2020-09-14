@@ -12,17 +12,18 @@
     </parent>
 
     <groupId>{{organisationPackage}}.{{organisationName}}.reactor</groupId>
-    <artifactId>api-reactor</artifactId>
+    <artifactId>common-reactor</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>api-reactor</name>
-    <description>api-reactor</description>
+    <name>common-reactor</name>
+    <description>common-reactor</description>
 
     <modules>
-        {{#microservices}}
-        <module>{{name}}-api</module>
-        {{/microservices}}
+        <module>java-microservice-support</module>
+        <module>dotnet-microservice-support</module>
+        <module>common-jackson-support</module>
+        <module>api-generator-support</module>
     </modules>
 
 </project>

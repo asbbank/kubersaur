@@ -20,8 +20,18 @@ public class MicroserviceImplGenerator extends Generator implements org.kubersau
     public void init(String name, String implementationBaseDirectory, String templateDir, Org org) {
         this.name = name;
         this.baseDirectory = implementationBaseDirectory;
-        this.templateDirectory = templateDir;
+        this.templateDirectory = templateDir+"csharp/";
         this.org = org;
+    }
+
+    @Override
+    public String getName() {
+        return "csharp";
+    }
+
+    @Override
+    public Language getLanguage() {
+        return Language.CSHARP;
     }
 
     public void generate() throws IOException {
@@ -94,14 +104,5 @@ public class MicroserviceImplGenerator extends Generator implements org.kubersau
 
     }
 
-    @Override
-    public String getName() {
-        return "csharp";
-    }
-
-    @Override
-    public Language getLanguage() {
-        return Language.CSHARP;
-    }
 
 }

@@ -10,9 +10,7 @@ import org.kubersaur.codegen.implementation.CodegenConfig;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ServiceLoader;
+import java.util.*;
 
 public class MicroserviceGenerator {
 
@@ -23,24 +21,31 @@ public class MicroserviceGenerator {
     private final String implementationParentDir;
     private final Language language;
     private Org org;
+    private Set<String> generatorOverrides;
 
     private static ServiceLoader<CodegenConfig> implementationLoader = ServiceLoader.load(CodegenConfig.class);
     private Map<Language, CodegenConfig> implementationGenerator = new HashMap<>();
 
-    public MicroserviceGenerator(String name, Language language, Org org) {
+    public MicroserviceGenerator(String name, Language language, Org org, Set<String> generatorOverrides) {
         this.name = name;
         this.language = language;
         this.org = org;
+        this.generatorOverrides = generatorOverrides;
         this.interfaceParentDir = "code/api/";
         this.implementationParentDir = "code/service/";
         this.implementationBaseDirectory = implementationParentDir+this.name+"-service/";
         this.interfaceBaseDirectory = interfaceParentDir+this.name+"-api/";
 
         init();
+        System.out.println(generatorOverrides);
     }
 
     void init(){
-        implementationLoader.forEach(l -> implementationGenerator.put(l.getLanguage(), l));
+        implementationLoader.forEach(l -> {
+            if(!implementationGenerator.containsKey(l.getLanguage()) || generatorOverrides.contains(l.getName())) {
+                implementationGenerator.put(l.getLanguage(), l);
+            }
+        });
     }
 
     public void generate() throws IOException {
@@ -54,8 +59,7 @@ public class MicroserviceGenerator {
         if(codegenConfig == null){
             throw new IllegalArgumentException("implementation language:"+language+" not supported");
         }
-        String templateDir = implementationParentDir + codegenConfig.getName();
-        codegenConfig.init(name, implementationBaseDirectory, templateDir, org);
+        codegenConfig.init(name, implementationBaseDirectory, implementationParentDir, org);
         ((Generator) codegenConfig).generate();
 
         new ReactorPomGenerator(org, interfaceParentDir).generate();

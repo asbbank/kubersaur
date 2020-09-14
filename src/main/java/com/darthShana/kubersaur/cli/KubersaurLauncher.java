@@ -23,20 +23,36 @@ public class KubersaurLauncher {
         commander.parse(argv);
 
         String parsedCommand = commander.getParsedCommand();
-
-        Yaml yaml = new Yaml(new Constructor(Org.class));
-        InputStream inputStream = new FileInputStream("kubersaur.yaml");
-        Org org = yaml.load(inputStream);
+        KubersaurLauncher launcher = new KubersaurLauncher();
 
         if("create".equals(parsedCommand)){
-            microservice.run(org, yaml);
+            launcher.launchCreate(microservice);
         }else if("prepare".equals(parsedCommand)){
-            prepare.run(org, yaml);
+            launcher.launchPrepare(prepare);
         }
 
 
     }
 
+    public void launchCreate(CreateMicroservice microservice) throws IOException {
+        Yaml yaml = new Yaml(new Constructor(Org.class));
+        InputStream inputStream = new FileInputStream("kubersaur.yaml");
+        Org org = yaml.load(inputStream);
+        microservice.run(org, yaml);
+    }
+
+    public void launchPrepare(PrepareMicroservice prepare) throws IOException {
+        Yaml yaml = new Yaml(new Constructor(Org.class));
+        InputStream inputStream = new FileInputStream("kubersaur.yaml");
+        Org org = yaml.load(inputStream);
+        prepare.run(org, yaml);
+    }
 
 
+    public void launchInit(InitialiseOrganisation init) throws IOException {
+        Org org = new Org();
+        org.setName(init.organisationName());
+        org.setPackagePath(init.organisationPackage());
+        init.run(org);
+    }
 }

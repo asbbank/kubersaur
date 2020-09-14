@@ -8,21 +8,24 @@
         <groupId>org.kubersaurus.parent</groupId>
         <artifactId>project-parent</artifactId>
         <version>1.1-SNAPSHOT</version>
-        <relativePath>../parent</relativePath>
+        <relativePath>./parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>{{organisationPackage}}.{{organisationName}}.reactor</groupId>
-    <artifactId>api-reactor</artifactId>
+    <groupId>{{organisationPackage}}.{{organisationName}}.code-reactor</groupId>
+    <artifactId>code-reactor</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>api-reactor</name>
-    <description>api-reactor</description>
+    <name>code-reactor</name>
+    <description>code-reactor</description>
 
     <modules>
-        {{#microservices}}
-        <module>{{name}}-api</module>
-        {{/microservices}}
+        <module>parent</module>
+        <module>tiles</module>
+        <module>common</module>
+        <module>composite</module>
+        <module>api</module>
+        <module>service</module>
     </modules>
 
 </project>

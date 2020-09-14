@@ -1,8 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
-COPY ZscalerRootCA.pem /usr/local/share/ca-certificates/ASB-Root-CA.crt
-RUN update-ca-certificates
-
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers

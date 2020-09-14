@@ -1,7 +1,6 @@
 package com.darthShana.kubersaur.generator.core;
 
 import com.darthShana.kubersaur.generator.Generator;
-import com.darthShana.kubersaur.generator.microservice.service.java.MicroserviceImplGenerator;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;

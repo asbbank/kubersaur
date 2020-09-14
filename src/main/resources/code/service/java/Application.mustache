@@ -1,4 +1,4 @@
-package {{organisationPackage}};
+package {{organisationPackage}}.{{organisationName}}.{{microserviceName}};
 
 import cd.connect.lifecycle.ApplicationLifecycleManager;
 import cd.connect.lifecycle.LifecycleStatus;
@@ -14,10 +14,10 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import java.net.URI;
 
-import {{organisationPackage}}.common.edge.CommonConfiguration;
-import {{organisationPackage}}.common.edge.filter.CORSResponseFilter;
-import {{organisationPackage}}.api.{{microserviceNameCamelCase}}DinosaurResource;
-import {{organisationPackage}}.service.DomainService;
+import org.kubersaurus.common.CommonConfiguration;
+import org.kubersaurus.common.filter.CORSResponseFilter;
+import {{organisationPackage}}.{{organisationName}}.{{microserviceName}}.api.{{microserviceNameCamelCase}}DinosaurResource;
+import {{organisationPackage}}.{{organisationName}}.{{microserviceName}}.service.DomainService;
 
 public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
@@ -36,7 +36,7 @@ public class Application {
             }
         });
 
-        LOGGER.info("Home Ownership Explorer started -> {}", BASE_URI);
+        LOGGER.info("{{microserviceName}} service started -> {}", BASE_URI);
         ApplicationLifecycleManager.updateStatus(LifecycleStatus.STARTED);
         Thread.currentThread().join();
     }
