@@ -3,9 +3,9 @@ global:
   environment: development
   cluster: nonprod
   pullPolicy: Always
-  domainName: dev.asb-engagement.co.nz
+  domainName: dev.acme.co.nz
   subDomain: dev
-  domainList: ["dev.asb-engagement.co.nz"]
+  domainList: ["dev.acme.co.nz"]
   oauth_client_id: "26d96e29-0963-4912-82bb-01ede5603e06"
   istio:
     gateway: edge-gateway
@@ -26,7 +26,7 @@ global:
 {{#microservices}}
 {{name}}:
   image:
-    name: engagementacrdev.azurecr.io/kubersaurus/{{name}}
+    name: {{organisationDockerRegistry}}/{{organisationName}}/{{name}}
     tag: dev
     pullPolicy: Always
   secrets:

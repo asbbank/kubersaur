@@ -2,4 +2,4 @@
 microservices:
 - {name: customer-accounts}
 name: customer
-packagePath: nz.co.asb.engineering
+packagePath: org.acme
