@@ -11,7 +11,7 @@
         <relativePath>./code/parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.acme.kubersaurus.reactor</groupId>
+    <groupId>org.kubersaurus.reactor</groupId>
     <artifactId>kubersaurus-reactor</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
