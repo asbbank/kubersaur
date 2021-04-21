@@ -59,8 +59,8 @@ public class OrganisationGenerator extends Generator {
                 .generate(this);
 
         new FileGeneratorBuilder("tile.xml")
-                .atLocation("code/tiles/tiles-jib-docker")
-                .withTemplate("code/tiles/tiles-jib-docker/tile.mustache")
+                .atLocation("code/tiles/tile-jib-docker")
+                .withTemplate("code/tiles/tile-jib-docker/tile.mustache")
                 .generate(this);
     }
 }
