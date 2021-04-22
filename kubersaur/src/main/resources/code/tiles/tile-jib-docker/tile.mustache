@@ -7,8 +7,8 @@
         <secret.properties>/etc/app/secret.properties</secret.properties>
         <app.base.properties>-Ddummy=false</app.base.properties>
         <jib-maven-plugin.version>1.2.0</jib-maven-plugin.version>
-        <docker.registry>{{organisationDockerRegistry}}</docker.registry>
-        <docker.image.from>{{organisationDockerRegistry}}</docker.image.from>
+        <docker.registry>docker.io</docker.registry>
+        <docker.image.from>openjdk:11</docker.image.from>
         <docker.image.name>{{organisationName}}/${project.artifactId}</docker.image.name>
         <docker.image.tag>dev</docker.image.tag>
         <docker.auth.username>changeme</docker.auth.username>
