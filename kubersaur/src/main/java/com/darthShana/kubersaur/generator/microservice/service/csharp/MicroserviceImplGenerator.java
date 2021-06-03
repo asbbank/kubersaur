@@ -9,16 +9,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class MicroserviceImplGenerator extends Generator implements org.kubersaur.codegen.implementation.CodegenConfig{
-    private String name;
     private String baseDirectory;
     private String templateDirectory;
-    private Org org;
 
     public MicroserviceImplGenerator(){}
 
     @Override
     public void init(String name, String implementationBaseDirectory, String templateDir, Org org) {
-        this.name = name;
+        this.microserviceName = name;
         this.baseDirectory = implementationBaseDirectory;
         this.templateDirectory = templateDir+"csharp/";
         this.org = org;
@@ -41,7 +39,7 @@ public class MicroserviceImplGenerator extends Generator implements org.kubersau
         new File(baseDirectory+"target/").mkdirs();
 
 
-        new FileGeneratorBuilder(name+"-service.csproj")
+        new FileGeneratorBuilder(microserviceName+"-service.csproj")
                 .atLocation(baseDirectory)
                 .withTemplate(templateDirectory+"serviceCSProj.mustache")
                 .generate(this);
